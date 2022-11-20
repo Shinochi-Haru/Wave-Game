@@ -30,21 +30,22 @@ public class FlotsamDrop : MonoBehaviour
 
     public void Drop()
     {
-        var oneAreaWidth = (_dropAreaTopLeft.x - _dropAreaBottomRight.x) > 0f ?
-            (_dropAreaTopLeft.x - _dropAreaBottomRight.x) :
-            -(_dropAreaTopLeft.x - _dropAreaBottomRight.x);
-        oneAreaWidth /= (float)_horizontalDivision;
-        var oneAreaHeight = (_dropAreaTopLeft.y - _dropAreaBottomRight.y) > 0f ?
-            (_dropAreaTopLeft.y - _dropAreaBottomRight.y) :
-            -(_dropAreaTopLeft.y - _dropAreaBottomRight.y);
-        oneAreaHeight /= (float)_verticalDivision;
+        var overallWidth = (_dropAreaBottomRight.x - _dropAreaTopLeft.x) > 0f ?
+            (_dropAreaBottomRight.x - _dropAreaTopLeft.x) :
+            -(_dropAreaBottomRight.x - _dropAreaTopLeft.x);
+        var oneAreaWidth = overallWidth / (float)_horizontalDivision;
+
+        var overallHeight = (_dropAreaBottomRight.y - _dropAreaTopLeft.y) > 0f ?
+            (_dropAreaBottomRight.y - _dropAreaTopLeft.y) :
+            -(_dropAreaBottomRight.y - _dropAreaTopLeft.y);
+        var oneAreaHeight = overallHeight / (float)_verticalDivision;
         // 指定されたエリアをn * m分割してそこにa個ずつ漂流物を配置する。
         for (int i = 0; i < _verticalDivision; i++)// 改行
         {
             for (int j = 0; j < _horizontalDivision; j++) // 一つ左の区画へ
             {
                 var xPos = UnityEngine.Random.Range(oneAreaWidth * i, oneAreaWidth * (i + 1));
-                var yPos = UnityEngine.Random.Range(oneAreaHeight * j, oneAreaWidth * (j + 1));
+                var yPos = UnityEngine.Random.Range(oneAreaHeight * j, oneAreaHeight * (j + 1));
                 var generationPos = new Vector2(xPos, yPos) + new Vector2(_dropAreaTopLeft.x, -_dropAreaTopLeft.y);
 
                 if (_waveAnimationer.WavesPulledCount % 2 == 0)
