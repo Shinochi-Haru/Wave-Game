@@ -8,7 +8,17 @@ public class PlayerController : MonoBehaviour
     private Vector2 _dir;
     [SerializeField]private Vector2 _movePower;
     [SerializeField] Transform _muzzle = null;
-    [SerializeField] GameObject _bulletPrefab = null;
+    [SerializeField] BulletController _bulletPrefab = null;
+    [SerializeField] float _shotTimer;
+    [SerializeField] float _bulletSpeed = 10f;
+    private float _shotAngleRange;
+    [SerializeField] int _shotCount; // 弾の発射数
+    [SerializeField] float _shotInterval; // 弾の発射間隔（秒）
+    [SerializeField]private int _speed;
+    [SerializeField] int _bulletCount = 0;
+
+    public int Speed { get { return _speed; } set { _speed = value; } }
+
 
     void Start()
     {
@@ -17,29 +27,52 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
-        _dir = new Vector2(h, v);
+        float h = Input.GetAxisRaw("Horizontal");   
+        float v = Input.GetAxisRaw("Vertical");     
+        Vector2 dir = new Vector2(h, v).normalized;  
+        _rb.velocity = dir * _movePower;        
 
-        if (_rb.velocity != Vector2.zero)
-        {
-            this.transform.up = _rb.velocity;
-        }
+        // プレイヤーのスクリーン座標を計算する
+        var screenPos = Camera.main.WorldToScreenPoint(transform.position);
+
+        // プレイヤーから見たマウスカーソルの方向を計算する
+        var direction = Input.mousePosition - screenPos;
+
+        // マウスカーソルが存在する方向の角度を取得する
+        var angle = Utils.GetAngle(Vector3.zero, direction);
+
+        // プレイヤーがマウスカーソルの方向を見るようにする
+        var angles = transform.localEulerAngles;
+        angles.z = angle - 90;
+        transform.localEulerAngles = angles;
+
+        // 弾の発射タイミングを管理するタイマーを更新する
+        _shotTimer += Time.deltaTime;
+
+        _shotTimer = 0;// 弾の発射タイミングを管理するタイマーをリセットする
+
+        // 弾を発射する
         if (Input.GetButtonDown("Fire1"))
         {
-            Fire();
-        }
+            Fire(angle, _bulletSpeed, _shotCount);
+            _bulletCount++;
+        }  
     }
-    void Fire()
+
+    // 弾を発射する関数
+    void Fire(float angleBase, float speed, int count)
     {
-        if (_bulletPrefab && _muzzle) // 弾をMuzzleから撃つ
+        var rot = transform.localRotation; // プレイヤーの向き
+        // 弾を 1 つだけ発射する場合
+        if (1 == count && 5 > _bulletCount)
         {
-            GameObject go = Instantiate(_bulletPrefab, _muzzle.position, _bulletPrefab.transform.rotation);//弾をインスタンス化
-            go.transform.SetParent(this.transform);
+            // 発射する弾を生成する
+            var fire = Instantiate(_bulletPrefab, _muzzle.position, rot);
+
+            // 弾を発射する方向と速さを設定する
+            fire.Init(angleBase, speed);
         }
     }
-    void FixedUpdate()
-    {
-        _rb.AddForce(_dir.normalized * _movePower, ForceMode2D.Force);
-    }
+
+    
 }
