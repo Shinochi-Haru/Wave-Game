@@ -11,7 +11,7 @@ public class Recovery : ItemBase
     [Header("アイテムを取ったら回復するHP量")]
     [SerializeField] int _recoveryHp = 1;
 
-    TestPlayerController _player;
+    PlayerController _player;
 
     public override void Activate()
     {
@@ -20,7 +20,7 @@ public class Recovery : ItemBase
 
         if (playerObj)
         {
-            _player = playerObj.GetComponent<TestPlayerController>();
+            _player = playerObj.GetComponent<PlayerController>();
             if (_player)
             {
                 Debug.Log("回復した");
