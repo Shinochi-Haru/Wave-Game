@@ -12,22 +12,25 @@ public class EnemyController : MonoBehaviour
     [SerializeField] int _hp = 1;
     [Header("“¾“_")]
     [SerializeField] int _point = 1000;
+    [Header("UŒ‚—Í")]
+    [SerializeField] int _damage = 1;
 
     private TestPlayerController _player;
+    private ScoreManager _scoreManager;
 
     public int Hp { get { return _hp; } set { _hp = value; } }
     void Start()
     {
         Hp = _hp;
+        _scoreManager = GetComponent<ScoreManager>();
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<TestPlayerController>();
     }
 
     void Update()
     {
-        if (_hp < 1)
+        if(Hp < 1)
         {
-            //GameManager.Score += _point;
-            Destroy(gameObject,0.1f);
+            EnemyDead();
         }
     }
 
@@ -38,5 +41,18 @@ public class EnemyController : MonoBehaviour
             Hp--;
             Debug.Log("‚®‚Í‚Á‚Á");
         }
+        if (collision.gameObject.TryGetComponent(out TestPlayerController player))
+        {
+            player.Damage(_damage);
+        }
+    }
+
+    /// <summary>
+    /// Enemy‚ÌHp‚ª0‚É‚È‚Á‚½‚ÉŒÄ‚Î‚ê‚éŠÖ”
+    /// </summary>
+    void EnemyDead()
+    {
+        _scoreManager.UpdateScore(_point);
+        Destroy(this.gameObject);
     }
 }

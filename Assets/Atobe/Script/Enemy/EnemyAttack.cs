@@ -10,7 +10,7 @@ public class EnemyAttack : MonoBehaviour
 {
     [Header("弾のPrefab")]
     [SerializeField] GameObject _enemyBulletPrefab = null;
-    [Header("インターバル")]
+    [Header("発射インターバル")]
     [SerializeField] float _fireInterval = 1f;
     [Header("マズル")]
     [SerializeField] Transform _muzzle = null;

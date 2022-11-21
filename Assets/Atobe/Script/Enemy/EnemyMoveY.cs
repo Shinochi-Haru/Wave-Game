@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// X方向へ移動させるコンポーネント
+/// Y方向へ移動させるコンポーネント
 /// 壁にぶつかると反転
 /// </summary>
 
-public class EnemyMoveX : MonoBehaviour
+public class EnemyMoveY : MonoBehaviour
 {
     [SerializeField] float _speed = 3f;
-    Vector2 _lineForWall = Vector2.left;
+    Vector2 _lineForWall = Vector2.down;
     [SerializeField] LayerMask _wallLayer = 0;
-    Vector2 _moveDirection = Vector2.left;
+    Vector2 _moveDirection = Vector2.down;
     Rigidbody2D _rb = default;
 
     void Start()
@@ -41,7 +41,7 @@ public class EnemyMoveX : MonoBehaviour
         }
 
         velo = _moveDirection.normalized * _speed;
-        velo.y = _rb.velocity.y;
+        velo.x = _rb.velocity.x;
         _rb.velocity = velo;
     }
 }
