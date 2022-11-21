@@ -12,7 +12,8 @@ public class EnemyBulletController : MonoBehaviour
 {
     [Header("発射する弾のスピード")]
     [SerializeField] float _speed = 3f;
-
+    [Header("攻撃力")]
+    [SerializeField] int _damage = 1;
     void Start()
     {
         // 速度ベクトルを求める
@@ -39,6 +40,10 @@ public class EnemyBulletController : MonoBehaviour
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Wall")
         {
             Destroy(this.gameObject);
+        }
+        if (collision.gameObject.TryGetComponent(out TestPlayerController player))
+        {
+            player.Damage(_damage);
         }
     }
 }

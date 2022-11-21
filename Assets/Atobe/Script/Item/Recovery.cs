@@ -6,7 +6,6 @@ using UnityEngine;
 /// 取得したら回復するアイテム
 /// </summary>
 
-[RequireComponent(typeof(BoxCollider2D))]
 public class Recovery : ItemBase
 {
     [Header("アイテムを取ったら回復するHP量")]

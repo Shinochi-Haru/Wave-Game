@@ -10,9 +10,9 @@ public abstract class ItemBase : MonoBehaviour
 {
     public abstract void Activate();
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             Debug.Log("Hit");
             Activate();
