@@ -8,13 +8,12 @@ public class PlayerHPContoroller : MonoBehaviour
     [SerializeField] int objectHP;
     private GameObject[] heartArray = new GameObject[2];
     private int heartCount;
-    void Start()
+    [SerializeField] int _hp = 3;
+    public int Hp { get { return _hp; } set { _hp = value; } }
+
+    public void Damage(int dam)
     {
-        heartCount = 3;
+        Hp -= dam;
     }
 
-    void Update()
-    {
-        
-    }
 }
