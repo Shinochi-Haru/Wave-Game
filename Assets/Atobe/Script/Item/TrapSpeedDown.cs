@@ -10,7 +10,7 @@ public class TrapSpeedDown : ItemBase
     [SerializeField] float _duration = 1.0f;
 
     float _saveSpeed = 5.0f;
-    TestPlayerController _player;
+    PlayerController _player;
     public override void Activate()
     {
         Debug.Log("Active");
@@ -18,7 +18,7 @@ public class TrapSpeedDown : ItemBase
 
         if (playerObj)
         {
-            _player = playerObj.GetComponent<TestPlayerController>();
+            _player = playerObj.GetComponent<PlayerController>();
             if (_player)
             {
                 Debug.Log("SetSpeed");

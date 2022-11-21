@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour
     [Header("çUåÇóÕ")]
     [SerializeField] int _damage = 1;
 
-    private TestPlayerController _player;
+    private PlayerController _player;
     private ScoreManager _scoreManager;
 
     public int Hp { get { return _hp; } set { _hp = value; } }
@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour
     {
         Hp = _hp;
         _scoreManager = GetComponent<ScoreManager>();
-        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<TestPlayerController>();
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     void Update()
@@ -41,7 +41,7 @@ public class EnemyController : MonoBehaviour
             Hp--;
             Debug.Log("ÇÆÇÕÇ¡Ç¡");
         }
-        if (collision.gameObject.TryGetComponent(out TestPlayerController player))
+        if (collision.gameObject.TryGetComponent(out PlayerController player))
         {
             player.Damage(_damage);
         }
