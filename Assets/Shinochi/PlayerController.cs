@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");   
         float v = Input.GetAxisRaw("Vertical");     
         Vector2 dir = new Vector2(h, v).normalized;  
-        _rb.velocity = dir * _movePower;        
+        _rb.velocity = dir * _speed;        
 
         // プレイヤーのスクリーン座標を計算する
         var screenPos = Camera.main.WorldToScreenPoint(transform.position);
@@ -57,13 +57,16 @@ public class PlayerController : MonoBehaviour
         // 弾の発射タイミングを管理するタイマーを更新する
         _shotTimer += Time.deltaTime;
 
-        _shotTimer = 0;// 弾の発射タイミングを管理するタイマーをリセットする
+        _shotTimer = 0;// 弾の発射タイミングを管理するタイマーをリセット
 
         // 弾を発射する
-        if (Input.GetButtonDown("Fire1"))
+        if (_bulletCount > 0)
         {
-            Fire(angle, _bulletSpeed, _shotCount);
-            _bulletCount--;
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Fire(angle, _bulletSpeed, _shotCount);
+                _bulletCount--;
+            }
         }
 
         // Player死亡時

@@ -10,7 +10,7 @@ public class BulletPlus : ItemBase
 {
     [Header("í«â¡Ç∑ÇÈécíeêî")]
     [SerializeField] int _bullet = 1;
-    TestPlayerController _player;
+    PlayerController _player;
     public override void Activate()
     {
         Debug.Log("Active");
@@ -19,7 +19,7 @@ public class BulletPlus : ItemBase
         if (playerObj)
         {
             Debug.Log("íeêîí«â¡");
-            _player = playerObj.GetComponent<TestPlayerController>();
+            _player = playerObj.GetComponent<PlayerController>();
             _player.UpdateBullet(_bullet);
         }
         Destroy(this.gameObject);
