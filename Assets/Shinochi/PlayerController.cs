@@ -14,15 +14,23 @@ public class PlayerController : MonoBehaviour
     private float _shotAngleRange;
     [SerializeField] int _shotCount; // ’e‚Ì”­Ë”
     [SerializeField] float _shotInterval; // ’e‚Ì”­ËŠÔŠui•bj
-    [SerializeField]private int _speed;
+    [SerializeField]private float _speed;
     [SerializeField] int _bulletCount = 0;
+    [SerializeField]private int _hp;
+    SceneCanger sceneCanger;
 
-    public int Speed { get { return _speed; } set { _speed = value; } }
+    public int HpMax { get; private set; }
+    public int Hp { get { return _hp; } set { _hp = value; } }
+    public float DefaultSpeed { get; private set; }
+    public float SetSpeed { set { _speed = value; } }
 
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        HpMax = _hp;
+        DefaultSpeed = _speed;
+        sceneCanger = GetComponent<SceneCanger>();
     }
 
     void Update()
@@ -55,8 +63,15 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Fire(angle, _bulletSpeed, _shotCount);
-            _bulletCount++;
-        }  
+            _bulletCount--;
+        }
+
+        // Player€–S
+        if (Hp < 1)
+        {
+            Debug.Log("GameOver");
+            sceneCanger.LoadScene();
+        }
     }
 
     // ’e‚ğ”­Ë‚·‚éŠÖ”
@@ -64,7 +79,7 @@ public class PlayerController : MonoBehaviour
     {
         var rot = transform.localRotation; // ƒvƒŒƒCƒ„[‚ÌŒü‚«
         // ’e‚ğ 1 ‚Â‚¾‚¯”­Ë‚·‚éê‡
-        if (1 == count && 5 > _bulletCount)
+        if (1 == count && 0 < _bulletCount)
         {
             // ”­Ë‚·‚é’e‚ğ¶¬‚·‚é
             var fire = Instantiate(_bulletPrefab, _muzzle.position, rot);
@@ -74,5 +89,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
+    public void UpdateBullet(int bullet)
+    {
+        _bulletCount += bullet;
+    }
+
+    public void Damage(int dam)
+    {
+        Hp -= dam;
+    }
 }

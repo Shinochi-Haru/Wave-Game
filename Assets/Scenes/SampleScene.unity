@@ -273,10 +273,13 @@ MonoBehaviour:
   _movePower: {x: 5, y: 5}
   _muzzle: {fileID: 1242733025}
   _bulletPrefab: {fileID: 4820717424214791721, guid: 9506db53c3000fb45a8ec3d29c7c19b1, type: 3}
-  _shotTimer: 1
+  _shotTimer: 0
   _bulletSpeed: 0.1
   _shotCount: 1
   _shotInterval: 1
+  _speed: 10
+  _bulletCount: 5
+  _hp: 3
 --- !u!50 &1742273047
 Rigidbody2D:
   serializedVersion: 4
