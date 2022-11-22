@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class WaveAnimation : MonoBehaviour
@@ -12,6 +13,8 @@ public class WaveAnimation : MonoBehaviour
     private float _wavesPushTime = 1f;
     [Tooltip("波が停止する時間"), SerializeField]
     private float _wavesIdleTime = 10f;
+    [Tooltip("ゲームオーバーシーンに移行するまでの時間"),SerializeField]
+    private float _gameoverDelayTime = 0f;
 
     [Tooltip("アイドルするポジション"), SerializeField]
     private Vector3 _idlePos;
@@ -29,6 +32,7 @@ public class WaveAnimation : MonoBehaviour
     /// </summary>
     private float _idleTimer = 0f;
     private FlotsamDrop _droper = null;
+    private WavesPlayerContact _playerContacter = null;
 
     /// <summary> 波が引いた回数をカウントする値 </summary>
     public int WavesPulledCount => _wavesPulledCount;
@@ -36,6 +40,7 @@ public class WaveAnimation : MonoBehaviour
     private void Start()
     {
         _droper = GetComponent<FlotsamDrop>();
+        _playerContacter = GetComponent<WavesPlayerContact>();
         // アイドルから開始する
         // アイドル→プッシュ→プル→アイドル
         WavesIdle();
@@ -52,7 +57,16 @@ public class WaveAnimation : MonoBehaviour
             SetDelay(0.12f). // ちょっと待って波を引かせる
             OnComplete(() =>
             {
-                WavesIdle();
+                // 波が引き切った時、プレイヤーを攫っていたら n秒待ってGameOverSceneに遷移する。
+                if (_playerContacter.TakeAwayPlayer)
+                {
+                    StartCoroutine(StartGameOverCoroutine());
+                }
+                // そうで無ければ通常行動
+                 else
+                {
+                    WavesIdle();
+                }
             });
     }
     private void WavesPush()
@@ -64,6 +78,8 @@ public class WaveAnimation : MonoBehaviour
             {
                 // 波が満ちた瞬間カウントアップする。
                 _wavesPulledCount++;
+                // アイテムを全て削除する。
+                _droper.ItemDelete();
                 // 波が満ちた瞬間ドロップする。
                 _droper.Drop();
                 WavesPull();
@@ -86,5 +102,17 @@ public class WaveAnimation : MonoBehaviour
         }
         // 完了したら波をプッシュする
         WavesPush();
+    }
+    IEnumerator StartGameOverCoroutine()
+    {
+        var timer = 0f;
+        // 待つ処理
+        while (timer < _gameoverDelayTime)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        // 完了したら波をプッシュする
+        SceneManager.LoadScene("GameOver");
     }
 }

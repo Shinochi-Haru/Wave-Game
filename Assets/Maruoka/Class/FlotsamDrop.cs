@@ -23,6 +23,8 @@ public class FlotsamDrop : MonoBehaviour
     private GameObject[] _flotsamEnemyPrefabs = default;
 
     private WaveAnimation _waveAnimationer = null;
+    private List<GameObject> _itemHolder = new();
+
     private void Start()
     {
         _waveAnimationer = GetComponent<WaveAnimation>();
@@ -53,7 +55,8 @@ public class FlotsamDrop : MonoBehaviour
                     for (int k = 0; k < _numberToPlaceItem; k++) // ƒAƒCƒeƒ€‚ð¶¬‚·‚é
                     {
                         var index = UnityEngine.Random.Range(0, _flotsamItemPrefabs.Length);
-                        GameObject.Instantiate(_flotsamItemPrefabs[index], generationPos, Quaternion.identity);
+                        var item = GameObject.Instantiate(_flotsamItemPrefabs[index], generationPos, Quaternion.identity);
+                        _itemHolder.Add(item);
                     }
                 }
                 else
@@ -65,6 +68,15 @@ public class FlotsamDrop : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    public void ItemDelete()
+    {
+        for (int i = _itemHolder.Count - 1; i > -1; i--)
+        {
+            Destroy(_itemHolder[i]);
+            _itemHolder.RemoveAt(i);
         }
     }
 }
