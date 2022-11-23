@@ -26,13 +26,14 @@ public class WaveAnimation : MonoBehaviour
     [Tooltip("波が満ちる時のイージング"), SerializeField]
     private Ease _pushEase = default;
 
-    private int _wavesPulledCount = 0;
+    private int _wavesPulledCount = -1;
     /// <summary>
     /// 計測用タイマー
     /// </summary>
     private float _idleTimer = 0f;
     private FlotsamDrop _droper = null;
     private WavesPlayerContact _playerContacter = null;
+    private CurrentTurnPresenter _currentTurnPresenter = null;
 
     /// <summary> 波が引いた回数をカウントする値 </summary>
     public int WavesPulledCount => _wavesPulledCount;
@@ -41,9 +42,12 @@ public class WaveAnimation : MonoBehaviour
     {
         _droper = GetComponent<FlotsamDrop>();
         _playerContacter = GetComponent<WavesPlayerContact>();
+        _currentTurnPresenter = GetComponent<CurrentTurnPresenter>();
         // アイドルから開始する
         // アイドル→プッシュ→プル→アイドル
         WavesIdle();
+
+        _currentTurnPresenter.UpdateValue();
     }
 
     // 以下三つのメソッドはDOTweenを使用して実装する。
@@ -66,6 +70,7 @@ public class WaveAnimation : MonoBehaviour
                  else
                 {
                     WavesIdle();
+                    _currentTurnPresenter.UpdateValue();
                 }
             });
     }
