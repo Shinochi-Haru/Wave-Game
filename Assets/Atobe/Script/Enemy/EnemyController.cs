@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         Hp = _hp;
-        _scoreManager = GetComponent<ScoreManager>();
+        _scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<TestPlayerController>();
     }
 
@@ -41,10 +41,10 @@ public class EnemyController : MonoBehaviour
             Hp--;
             Debug.Log("‚®‚Í‚Á‚Á");
         }
-        if (collision.gameObject.TryGetComponent(out TestPlayerController player))
+        /*if (collision.gameObject.TryGetComponent(out PlayerController player))
         {
             player.Damage(_damage);
-        }
+        }*/
     }
 
     /// <summary>
