@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 4772605612898354080}
   - component: {fileID: 4772605612898354094}
   - component: {fileID: 4772605612898354095}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TestEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +126,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &4772605612898354081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,7 +155,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyBulletPrefab: {fileID: 6184168484805211866, guid: dbed6c50dd94c0b4e9ad38188625a7dc, type: 3}
-  _fireInterval: 1
   _muzzle: {fileID: 4772605612898354093}
 --- !u!114 &4772605612898354094
 MonoBehaviour:

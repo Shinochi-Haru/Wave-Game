@@ -15,7 +15,7 @@ public class ChangeSpeed : ItemBase
 
     float _saveSpeed = 5.0f;
     int _count = 0;
-    PlayerController _player;
+    TestPlayerController _player;
     SpriteRenderer _sprite;
     public override void Activate()
     {
@@ -28,7 +28,7 @@ public class ChangeSpeed : ItemBase
 
             if (playerObj)
             {
-                _player = playerObj.GetComponent<PlayerController>();
+                _player = playerObj.GetComponent<TestPlayerController>();
                 if (_player)
                 {
                     _count++;
