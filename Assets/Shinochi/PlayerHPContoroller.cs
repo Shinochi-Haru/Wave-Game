@@ -11,9 +11,6 @@ public class PlayerHPContoroller : MonoBehaviour
     [SerializeField] int _hp = 3;
     public int Hp { get { return _hp; } set { _hp = value; } }
 
-    public void Damage(int dam)
-    {
-        Hp -= dam;
-    }
+    
 
 }

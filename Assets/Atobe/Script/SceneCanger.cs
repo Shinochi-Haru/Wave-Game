@@ -10,17 +10,15 @@ using UnityEngine.SceneManagement;
 
 public class SceneCanger : MonoBehaviour
 {
-    [Header("読み込みたいシーンの名前")]
-    [SerializeField] string _sceneName;
-
     ScoreManager _scoreManager;
     int _num = 0;
+
     /// <summary>
     /// シーンのロード用関数
     /// </summary>
-    public void LoadScene()
+    public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene(_sceneName);
+        SceneManager.LoadScene(sceneName);
     }
 
     /// <summary>
@@ -33,7 +31,7 @@ public class SceneCanger : MonoBehaviour
 
         if (scoreManager)
         {
-            Debug.Log("スコア追加");
+            Debug.Log("ScoreRiset");
             _scoreManager = scoreManager.GetComponent<ScoreManager>();
             _scoreManager.StartGame(_num);
         }

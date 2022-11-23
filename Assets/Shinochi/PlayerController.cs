@@ -14,15 +14,26 @@ public class PlayerController : MonoBehaviour
     private float _shotAngleRange;
     [SerializeField] int _shotCount; // 弾の発射数
     [SerializeField] float _shotInterval; // 弾の発射間隔（秒）
-    [SerializeField]private int _speed;
+    [SerializeField]private float _speed;
     [SerializeField] int _bulletCount = 0;
+    [SerializeField]private int _hp;//体力
+    [SerializeField] float _knockBackPower;   // ノックバックさせる力
+    SceneCanger sceneCanger;
+    [SerializeField] Transform enemy;
 
-    public int Speed { get { return _speed; } set { _speed = value; } }
+    public int HpMax { get; private set; }
+    public int Hp { get { return _hp; } set { _hp = value; } }
+    public float DefaultSpeed { get; private set; }
+    public float SetSpeed { set { _speed = value; } }
 
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        HpMax = _hp;
+        DefaultSpeed = _speed;
+        sceneCanger = GetComponent<SceneCanger>();
+
     }
 
     void Update()
@@ -30,7 +41,7 @@ public class PlayerController : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");   
         float v = Input.GetAxisRaw("Vertical");     
         Vector2 dir = new Vector2(h, v).normalized;  
-        _rb.velocity = dir * _movePower;        
+        _rb.velocity = dir * _speed;        
 
         // プレイヤーのスクリーン座標を計算する
         var screenPos = Camera.main.WorldToScreenPoint(transform.position);
@@ -49,14 +60,24 @@ public class PlayerController : MonoBehaviour
         // 弾の発射タイミングを管理するタイマーを更新する
         _shotTimer += Time.deltaTime;
 
-        _shotTimer = 0;// 弾の発射タイミングを管理するタイマーをリセットする
+        _shotTimer = 0;// 弾の発射タイミングを管理するタイマーをリセット
 
         // 弾を発射する
-        if (Input.GetButtonDown("Fire1"))
+        if (_bulletCount > 0)
         {
-            Fire(angle, _bulletSpeed, _shotCount);
-            _bulletCount++;
-        }  
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Fire(angle, _bulletSpeed, _shotCount);
+                _bulletCount--;
+            }
+        }
+
+        // Player死亡時
+        if (Hp < 1)
+        {
+            Debug.Log("GameOver");
+            sceneCanger.LoadScene("");
+        }
     }
 
     // 弾を発射する関数
@@ -64,7 +85,7 @@ public class PlayerController : MonoBehaviour
     {
         var rot = transform.localRotation; // プレイヤーの向き
         // 弾を 1 つだけ発射する場合
-        if (1 == count && 5 > _bulletCount)
+        if (1 == count && 0 < _bulletCount)
         {
             // 発射する弾を生成する
             var fire = Instantiate(_bulletPrefab, _muzzle.position, rot);
@@ -74,5 +95,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
+    public void UpdateBullet(int bullet)
+    {
+        _bulletCount += bullet;
+    }
+
+    public void Damage(int dam)
+    {
+        Hp -= dam;
+        Vector2 distination = (transform.position - enemy.transform.position).normalized;
+
+        _rb.AddForce(distination * _knockBackPower, (ForceMode2D)ForceMode.Force);
+    }
+    //void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Enemy")
+    //    {
+    //        _rb.velocity = Vector2.zero;
+    //        Vector2 distination = (transform.position - enemy.transform.position).normalized;
+           
+    //        _rb.AddForce(distination * _knockBackPower, (ForceMode2D)ForceMode.Force);
+    //    }
+    //}  テストノックバック
 }
