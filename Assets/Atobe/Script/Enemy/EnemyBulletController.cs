@@ -41,7 +41,7 @@ public class EnemyBulletController : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        if (collision.gameObject.TryGetComponent(out TestPlayerController player))
+        if (collision.gameObject.TryGetComponent(out PlayerController player))
         {
             player.Damage(_damage);
         }
