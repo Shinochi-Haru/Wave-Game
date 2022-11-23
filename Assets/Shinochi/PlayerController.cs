@@ -16,8 +16,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _shotInterval; // 弾の発射間隔（秒）
     [SerializeField]private float _speed;
     [SerializeField] int _bulletCount = 0;
-    [SerializeField]private int _hp;
+    [SerializeField]private int _hp;//体力
+    [SerializeField] float _knockBackPower;   // ノックバックさせる力
     SceneCanger sceneCanger;
+    [SerializeField] Transform enemy;
 
     public int HpMax { get; private set; }
     public int Hp { get { return _hp; } set { _hp = value; } }
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
         HpMax = _hp;
         DefaultSpeed = _speed;
         sceneCanger = GetComponent<SceneCanger>();
+
     }
 
     void Update()
@@ -73,7 +76,7 @@ public class PlayerController : MonoBehaviour
         if (Hp < 1)
         {
             Debug.Log("GameOver");
-            sceneCanger.LoadScene();
+            sceneCanger.LoadScene("");
         }
     }
 
@@ -100,5 +103,18 @@ public class PlayerController : MonoBehaviour
     public void Damage(int dam)
     {
         Hp -= dam;
+        Vector2 distination = (transform.position - enemy.transform.position).normalized;
+
+        _rb.AddForce(distination * _knockBackPower, (ForceMode2D)ForceMode.Force);
     }
+    //void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Enemy")
+    //    {
+    //        _rb.velocity = Vector2.zero;
+    //        Vector2 distination = (transform.position - enemy.transform.position).normalized;
+           
+    //        _rb.AddForce(distination * _knockBackPower, (ForceMode2D)ForceMode.Force);
+    //    }
+    //}  テストノックバック
 }

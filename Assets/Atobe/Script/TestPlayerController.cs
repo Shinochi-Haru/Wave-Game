@@ -43,7 +43,7 @@ public class TestPlayerController : MonoBehaviour
         if (Hp < 1)
         {
             Debug.Log("GameOver");
-            sceneCanger.LoadScene();
+            sceneCanger.LoadScene("");
         }
     }
 

@@ -18,7 +18,7 @@ public class SceneCanger : MonoBehaviour
     /// <summary>
     /// シーンのロード用関数
     /// </summary>
-    public void LoadScene()
+    public void LoadScene(string v)
     {
         SceneManager.LoadScene(_sceneName);
     }
