@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class ScoreText : MonoBehaviour
 {
-    [Tooltip("スコアを表示するテキスト")]
-    [SerializeField] Text _scoreText;
+    [Tooltip("スコアを表示するテキスト"),SerializeField]
+    Text _scoreText;
     void Update()
     {
-        _scoreText.text = "Score :" + ScoreManager.Score.ToString("D10");
+        _scoreText.text = "得点:" + ScoreManager.Score.ToString("D8");
     }
 }

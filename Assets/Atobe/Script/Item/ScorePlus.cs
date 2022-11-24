@@ -8,8 +8,8 @@ using UnityEngine;
 
 public class ScorePlus : ItemBase
 {
-    [Header("‰ÁŽZ‚·‚é“¾“_")]
-    [SerializeField] int _point = 1000;
+    [Tooltip("‰ÁŽZ‚·‚é“¾“_"),SerializeField]
+    int _point = 1000;
     
     ScoreManager _scoreManager;
     public override void Activate()

@@ -10,10 +10,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyBulletController : MonoBehaviour
 {
-    [Header("発射する弾のスピード")]
-    [SerializeField] float _speed = 3f;
-    [Header("攻撃力")]
-    [SerializeField] int _damage = 1;
+    [Tooltip("発射する弾のスピード"),SerializeField]
+    float _speed = 3f;
+    [Tooltip("攻撃力"),SerializeField]
+    int _damage = 1;
     void Start()
     {
         // 速度ベクトルを求める

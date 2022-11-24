@@ -8,8 +8,8 @@ using UnityEngine;
 
 public class Recovery : ItemBase
 {
-    [Header("アイテムを取ったら回復するHP量")]
-    [SerializeField] int _recoveryHp = 1;
+    [Tooltip("アイテムを取ったら回復するHP量"),SerializeField]
+    int _recoveryHp = 1;
 
     PlayerController _player;
 

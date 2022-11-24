@@ -8,18 +8,19 @@ using UnityEngine;
 
 public class BulletPlus : ItemBase
 {
-    [Header("í«â¡Ç∑ÇÈécíeêî")]
-    [SerializeField] int _bullet = 1;
-    PlayerController _player;
+    [Tooltip("í«â¡Ç∑ÇÈécíeêî"),SerializeField]
+    int _bullet = 1;
+
+    PlayerAttackController _player;
     public override void Activate()
     {
         Debug.Log("Active");
-        var playerObj = GameObject.FindGameObjectWithTag("Player");
+        var playerObj = GameObject.Find("Player");
         
         if (playerObj)
         {
             Debug.Log("íeêîí«â¡");
-            _player = playerObj.GetComponent<PlayerController>();
+            _player = playerObj.GetComponent<PlayerAttackController>();
             _player.UpdateBullet(_bullet);
         }
         Destroy(this.gameObject);

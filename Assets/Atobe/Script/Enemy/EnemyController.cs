@@ -8,12 +8,12 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [Header("Enemy‚Ì‘Ì—Í")]
-    [SerializeField] int _hp = 1;
-    [Header("“¾“_")]
-    [SerializeField] int _point = 1000;
-    [Header("UŒ‚—Í")]
-    [SerializeField] int _damage = 1;
+    [Tooltip("Enemy‚Ì‘Ì—Í"),SerializeField]
+    int _hp = 1;
+    [Tooltip("“¾“_"),SerializeField]
+    int _point = 1000;
+    [Tooltip("UŒ‚—Í"),SerializeField]
+    int _damage = 1;
 
     private PlayerController _player;
     private ScoreManager _scoreManager;

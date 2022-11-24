@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 触れたら遅くする
+/// </summary>
+
 public class TrapSpeedDown : ItemBase
 {
-    [Header("アイテムを取ったら設定されるスピード")]
-    [SerializeField] float _setSpeed = 10f;
-    [Header("アイテムの効果時間")]
-    [SerializeField] float _duration = 1.0f;
+    [Tooltip("アイテムを取ったら設定されるスピード"),SerializeField]
+    float _setSpeed = 10f;
+    [Tooltip("アイテムの効果時間"),SerializeField]
+    float _duration = 1.0f;
 
     float _saveSpeed = 5.0f;
     PlayerController _player;

@@ -11,29 +11,21 @@ using UnityEngine.SceneManagement;
 public class SceneCanger : MonoBehaviour
 {
     ScoreManager _scoreManager;
-    int _num = 0;
 
-    /// <summary>
-    /// シーンのロード用関数
-    /// </summary>
-    public void LoadScene(string sceneName)
+    public void LoadScene(string v)
     {
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(v);
     }
 
-    /// <summary>
-    /// ゲーム開始時に呼ぶ関数
-    /// </summary>
-    public void StartGame()
+    public void StartGame(int num)
     {
-        Debug.Log("Reset");
         var scoreManager = GameObject.Find("ScoreManager");
 
         if (scoreManager)
         {
-            Debug.Log("ScoreRiset");
+            Debug.Log("スコア追加");
             _scoreManager = scoreManager.GetComponent<ScoreManager>();
-            _scoreManager.StartGame(_num);
+            _scoreManager.ResetScore(num);
         }
     }
 }
