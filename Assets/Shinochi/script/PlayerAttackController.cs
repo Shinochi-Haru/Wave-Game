@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerAttackController : MonoBehaviour
 {
@@ -10,14 +11,31 @@ public class PlayerAttackController : MonoBehaviour
     [SerializeField] float _bulletSpeed = 10f;
     [SerializeField] int _shotCount; // 弾の発射数
     [SerializeField] int _bulletCount = 0;
+    [SerializeField] Text _text;
+    Animator _anim;
+
+    PlayerController _player;
+
+    [SerializeField] GameObject _topGun;
+    [SerializeField] GameObject _backGun;
+    [SerializeField] GameObject _leftGun;
+    [SerializeField] GameObject _rightGun;
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        _text.color = Color.black;
+        _text.text = "X " + _bulletCount.ToString("D3");
+        if (_bulletCount < 1)
+        {
+            _text.color = Color.red;
+        }
+
         // プレイヤーのスクリーン座標を計算する
         var screenPos = Camera.main.WorldToScreenPoint(transform.position);
 
@@ -29,7 +47,7 @@ public class PlayerAttackController : MonoBehaviour
 
         // プレイヤーがマウスカーソルの方向を見るようにする
         var angles = transform.localEulerAngles;
-        angles.z = angle - 90;
+        angles.z = angle + 90;
         transform.localEulerAngles = angles;
 
         // 弾の発射タイミングを管理するタイマーを更新する
@@ -42,8 +60,26 @@ public class PlayerAttackController : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1"))
             {
+                var player = GameObject.Find("Player");
+                _player = player.GetComponent<PlayerController>();
                 Fire(angle, _bulletSpeed, _shotCount);
                 _bulletCount--;
+                if (_player._top == true)//Top
+                {
+                    _topGun.SetActive(true);
+                }
+                else if (_player._back == true)//Back
+                {
+                    _backGun.SetActive(true);
+                }
+                else if (_player._left == true)//Left
+                {
+                    _leftGun.SetActive(true);
+                }
+                else if (_player._right == true)//Right
+                {
+                    _rightGun.SetActive(true);
+                }
             }
         }
     }
