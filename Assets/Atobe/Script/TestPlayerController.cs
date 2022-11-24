@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class TestPlayerController : MonoBehaviour
 {
-    [Header("プレイヤーの移動速度")]
-    [SerializeField] float _speed = 1.0f;
+    [Tooltip("プレイヤーの移動速度"),SerializeField]
+    float _speed = 1.0f;
     public float Speed => _speed;
 
-    [Header("プレイヤーの体力")]
-    [SerializeField] int _hp = 3;
-    [Header("残弾数")]
-    [SerializeField] int _bullet = 5;
+    [Tooltip("プレイヤーの体力"),SerializeField]
+    int _hp = 3;
+    [Tooltip("残弾数"),SerializeField]
+    int _bullet = 5;
 
     // プレイヤーの Rigidbody
     Rigidbody2D _rb = default;
@@ -43,7 +43,7 @@ public class TestPlayerController : MonoBehaviour
         if (Hp < 1)
         {
             Debug.Log("GameOver");
-            sceneCanger.LoadScene("");
+            sceneCanger.LoadScene("Result");
         }
     }
 

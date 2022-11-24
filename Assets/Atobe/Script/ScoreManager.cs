@@ -29,9 +29,9 @@ public class ScoreManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ゲーム開始時に呼ぶ関数
+    /// スコアリセット用関数
     /// </summary>
-    public void StartGame(int num)
+    public void ResetScore(int num)
     {
         Debug.Log("Reset");
         Score = num;

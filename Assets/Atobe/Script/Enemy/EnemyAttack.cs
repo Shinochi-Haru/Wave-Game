@@ -8,12 +8,12 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    [Header("弾のPrefab")]
-    [SerializeField] GameObject _enemyBulletPrefab = null;
-    //[Header("発射インターバル")]
-    //[SerializeField] float _fireInterval = 1f;
-    [Header("マズル")]
-    [SerializeField] Transform _muzzle = null;
+    [Tooltip("弾のPrefab"),SerializeField]
+    GameObject _enemyBulletPrefab = null;
+    //[Tooltip("発射インターバル"),SerializeField]
+    //float _fireInterval = 1f;
+    [Tooltip("マズル"),SerializeField]
+    Transform _muzzle = null;
     //float _timer;
     void Start()
     {

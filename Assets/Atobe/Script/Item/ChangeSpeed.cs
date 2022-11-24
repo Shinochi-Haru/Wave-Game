@@ -8,10 +8,10 @@ using UnityEngine;
 
 public class ChangeSpeed : ItemBase
 {
-    [Header("アイテムを取ったら設定されるスピード")]
-    [SerializeField] float _setSpeed = 10f;
-    [Header("アイテムの効果時間")]
-    [SerializeField] float _duration = 1.0f;
+    [Tooltip("アイテムを取ったら設定されるスピード"),SerializeField]
+    float _setSpeed = 10f;
+    [Tooltip("アイテムの効果時間"),SerializeField]
+    float _duration = 1.0f;
 
     float _saveSpeed = 5.0f;
     int _count = 0;
