@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     [Tooltip("")]
-    [SerializeField] float _lifetime = 0;
+    [SerializeField] float _lifetime = 2;
     private Vector3 m_velocity; // ‘¬“x
     private void Update()
     {
@@ -26,6 +26,6 @@ public class BulletController : MonoBehaviour
         var angles = transform.localEulerAngles;
         angles.z = angle - 90;
         transform.localEulerAngles = angles;
-        Destroy(gameObject, 2);
+        Destroy(gameObject, _lifetime);
     }
 }
