@@ -28,7 +28,7 @@ public class WavesPlayerContact : MonoBehaviour
         // プレイヤーを波の子オブジェクトにする。
         player.transform.SetParent(this.transform);
         // プレイヤーの移動を停止する。
-        // player.StopMove();
+        player.IsMove = false;
         // 波に攫う演出後,GameOver演出を再生,あるいはGameOverシーンに遷移する。
     }
     public void OnGameOver()

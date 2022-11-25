@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     public float DefaultSpeed { get; private set; }
     public float SetSpeed { set { _speed = value; } }
 
+    public bool IsMove { get; set; } = true;
 
 
     void Start()
@@ -42,10 +43,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        float h = Input.GetAxisRaw("Horizontal");   
-        float v = Input.GetAxisRaw("Vertical");     
-        _dir = new Vector2(h, v).normalized;  
-        _rb.velocity = _dir * _speed;        
+        if (IsMove)
+        {
+            float h = Input.GetAxisRaw("Horizontal");
+            float v = Input.GetAxisRaw("Vertical");
+            _dir = new Vector2(h, v).normalized;
+            _rb.velocity = _dir * _speed;
+        }
 
         // PlayerŽ€–SŽž
         if (_hp == 3)
