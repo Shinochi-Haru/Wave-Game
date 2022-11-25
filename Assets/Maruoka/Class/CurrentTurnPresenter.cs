@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class CurrentTurnPresenter : MonoBehaviour
 {
     private WaveAnimation _nowTurn = null;
@@ -11,7 +11,6 @@ public class CurrentTurnPresenter : MonoBehaviour
     [SerializeField]
     int _clearTurn;
     int _resultTurn;
-    SceneCanger sceneCanger;
 
     private void Awake()
     {
@@ -24,7 +23,6 @@ public class CurrentTurnPresenter : MonoBehaviour
     void Start()
     {
         _resultTurn = _clearTurn;
-        sceneCanger = GetComponent<SceneCanger>();
     }
     public void UpdateValue()
     {
@@ -39,9 +37,9 @@ public class CurrentTurnPresenter : MonoBehaviour
             _turnText.color = Color.red;
             _turnText.text = $"最終フェイズ";
         }*/
-        if ((_nowTurn.WavesPulledCount / 2) + 1 > _clearTurn)
+        if ((_nowTurn.WavesPulledCount / 2) + 1 == _clearTurn)
         {
-            sceneCanger.LoadScene("Result");
+            SceneManager.LoadScene("Result");
         }
     }
 }
