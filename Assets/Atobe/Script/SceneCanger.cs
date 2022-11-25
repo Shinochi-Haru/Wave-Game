@@ -11,10 +11,12 @@ using UnityEngine.SceneManagement;
 public class SceneCanger : MonoBehaviour
 {
     ScoreManager _scoreManager;
+    [SceneName,SerializeField]
+    private string _nextScene;
 
     public void LoadScene(string v)
     {
-        SceneManager.LoadScene(v);
+        SceneManager.LoadScene(_nextScene);
     }
 
     public void StartGame(int num)

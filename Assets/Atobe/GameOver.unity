@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 1233403912}
   - component: {fileID: 1233403911}
   - component: {fileID: 1233403910}
-  - component: {fileID: 1233403909}
+  - component: {fileID: 1233403913}
   m_Layer: 5
   m_Name: Button (Legacy)
   m_TagString: Untagged
@@ -445,18 +445,6 @@ RectTransform:
   m_AnchoredPosition: {x: 34, y: -429}
   m_SizeDelta: {x: 280, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1233403909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1233403907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b5da1dfee05d1443ba9df745e7f69c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1233403910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,7 +489,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1233403909}
+      - m_Target: {fileID: 1233403913}
         m_TargetAssemblyTypeName: SceneCanger, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
@@ -551,6 +539,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1233403907}
   m_CullTransparentMesh: 1
+--- !u!114 &1233403913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233403907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d2ff8bdd0ce5a49a0fcfa01a11945d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nextScene: Title
 --- !u!1 &1390116502
 GameObject:
   m_ObjectHideFlags: 0
