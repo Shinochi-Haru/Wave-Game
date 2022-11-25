@@ -20,7 +20,7 @@ public class SceneCanger : MonoBehaviour
     }
     public void LoadScene(string v)
     {
-        SceneManager.LoadScene(_nextScene);
+        SceneManager.LoadScene(v);
     }
 
     public void StartGame
