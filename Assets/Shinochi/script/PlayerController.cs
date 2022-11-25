@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     AudioSource _audio;
     [SerializeField] AudioClip _audioReroad;
     [SerializeField] AudioClip _audioDamage;
+    [SerializeField] AudioClip _bulletPlus;
+    [SerializeField] AudioClip _speedDown;
 
     public int HpMax { get; private set; }
     public int Hp { get { return _hp; } set { _hp = value; } }
@@ -44,12 +46,6 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = _dir * _speed;        
 
         // PlayerŽ€–SŽž
-        if (Hp < 1)
-        {
-            Debug.Log("GameOver");
-            sceneCanger.LoadScene("Result");
-        }
-
         if (_hp == 3)
         {
             heartArray[2].gameObject.SetActive(true);
@@ -57,17 +53,22 @@ public class PlayerController : MonoBehaviour
             heartArray[0].gameObject.SetActive(true);
         }
 
-        if (_hp == 2)
+        else if (_hp == 2)
         {
             heartArray[2].gameObject.SetActive(false);
             heartArray[1].gameObject.SetActive(true);
             heartArray[0].gameObject.SetActive(true);
         }
-        if (_hp == 1)
+        else if (_hp == 1)
         {
             heartArray[2].gameObject.SetActive(false);
             heartArray[1].gameObject.SetActive(false);
             heartArray[0].gameObject.SetActive(true);
+        }
+        else if (Hp < 1)
+        {
+            Debug.Log("GameOver");
+            sceneCanger.LoadScene("Result");
         }
     }
 
@@ -82,6 +83,11 @@ public class PlayerController : MonoBehaviour
         if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "EnemyX" || col.gameObject.tag == "EnemyY")
         {
             StartCoroutine("Damage");
+        }
+
+        if(col.gameObject.tag == "BulletPlus")
+        {
+            AudioSource.PlayClipAtPoint(_bulletPlus, transform.position);
         }
     }
 
