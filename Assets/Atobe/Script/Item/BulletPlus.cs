@@ -15,7 +15,7 @@ public class BulletPlus : ItemBase
     public override void Activate()
     {
         Debug.Log("Active");
-        var playerObj = GameObject.Find("Muzzle");
+        var playerObj = GameObject.Find("Player");
         
         if (playerObj)
         {
