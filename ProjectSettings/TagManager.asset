@@ -18,10 +18,10 @@ TagManager:
   - Water
   - UI
   - Enemy
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - PlayerDamage
+  - Enemy
+  - EnemyDamage
   - 
   - 
   - 

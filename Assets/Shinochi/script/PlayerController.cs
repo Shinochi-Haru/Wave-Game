@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioClip _audioReroad;
     [SerializeField] AudioClip _audioDamage;
     [SerializeField] AudioClip _speedDown;
+    [SerializeField] AudioClip _speedUp;
+    [SerializeField] AudioClip _recover;
+    [SerializeField] GameObject player;
 
     public int HpMax { get; private set; }
     public int Hp { get { return _hp; } set { _hp = value; } }
@@ -66,6 +69,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (Hp < 1)
         {
+            Instantiate(player, this.transform.position, Quaternion.identity);
             Debug.Log("GameOver");
             sceneCanger.LoadScene("Result");
         }
@@ -94,6 +98,21 @@ public class PlayerController : MonoBehaviour
         if (col.gameObject.tag == "BulletPlus")
         {
             _audio.PlayOneShot(_audioReroad);
+        }
+
+        if (col.gameObject.tag == "SpeedDown")
+        {
+            _audio.PlayOneShot(_speedDown);
+        }
+
+        if (col.gameObject.tag == "Recover")
+        {
+            _audio.PlayOneShot(_recover);
+        }
+
+        if (col.gameObject.tag == "SpeedUp")
+        {
+            _audio.PlayOneShot(_speedUp);
         }
     }
 
