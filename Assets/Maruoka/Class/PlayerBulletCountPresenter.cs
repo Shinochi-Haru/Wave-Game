@@ -15,6 +15,6 @@ public class PlayerBulletCountPresenter : MonoBehaviour
     }
     void Update()
     {
-        _countText.text = $"{_attackController.bulletCount}";
+        _countText.text = $"X {_attackController.BulletCount.ToString("000")}";
     }
 }
