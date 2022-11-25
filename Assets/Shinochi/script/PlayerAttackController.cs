@@ -10,9 +10,14 @@ public class PlayerAttackController : MonoBehaviour
     [SerializeField] float _bulletSpeed = 10f;
     [SerializeField] int _shotCount; // íeÇÃî≠éÀêî
     [SerializeField] int _bulletCount = 0;
+    [SerializeField]AudioClip _audio;
+    [SerializeField] AudioClip _audio2;
+    AudioSource a;
+
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        a = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -44,7 +49,13 @@ public class PlayerAttackController : MonoBehaviour
             {
                 Fire(angle, _bulletSpeed, _shotCount);
                 _bulletCount--;
+                a.PlayOneShot(_audio);
             }
+        }
+        else if(_bulletCount == 0)
+        {
+            if(Input.GetButtonDown("Fire1"))
+            a.PlayOneShot(_audio2);
         }
     }
     void Fire(float angleBase, float speed, int count)

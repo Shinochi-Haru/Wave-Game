@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     private new Renderer renderer;
     [SerializeField] float flashConut;
     [SerializeField] int flashLoop;
+    AudioSource _audio;
+    [SerializeField] AudioClip _audioReroad;
+    [SerializeField] AudioClip _audioDamage;
 
     public int HpMax { get; private set; }
     public int Hp { get { return _hp; } set { _hp = value; } }
@@ -30,6 +33,7 @@ public class PlayerController : MonoBehaviour
         DefaultSpeed = _speed;
         sceneCanger = GetComponent<SceneCanger>();
         renderer = GetComponent<Renderer>();
+        _audio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -70,11 +74,20 @@ public class PlayerController : MonoBehaviour
     public void UpdateBullet(int bullet)
     {
         _bulletCount += bullet;
+        _audio.PlayOneShot(_audioReroad);
     }
     void OnCollisionEnter2D(Collision2D col)
     {
         //Enemyとぶつかった時にコルーチンを実行
         if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "EnemyX" || col.gameObject.tag == "EnemyY")
+        {
+            StartCoroutine("Damage");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "EnemyBullet")
         {
             StartCoroutine("Damage");
         }
@@ -105,5 +118,6 @@ public class PlayerController : MonoBehaviour
     public void Damage(int dam)
     {
         Hp -= dam;
+        _audio.PlayOneShot(_audioDamage);
     }
 }
