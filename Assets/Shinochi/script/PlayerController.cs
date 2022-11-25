@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
     AudioSource _audio;
     [SerializeField] AudioClip _audioReroad;
     [SerializeField] AudioClip _audioDamage;
-    [SerializeField] AudioClip _bulletPlus;
     [SerializeField] AudioClip _speedDown;
 
     public int HpMax { get; private set; }
@@ -75,7 +74,6 @@ public class PlayerController : MonoBehaviour
     public void UpdateBullet(int bullet)
     {
         _bulletCount += bullet;
-        _audio.PlayOneShot(_audioReroad);
     }
     void OnCollisionEnter2D(Collision2D col)
     {
@@ -84,11 +82,6 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine("Damage");
         }
-
-        if(col.gameObject.tag == "BulletPlus")
-        {
-            AudioSource.PlayClipAtPoint(_bulletPlus, transform.position);
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -96,6 +89,11 @@ public class PlayerController : MonoBehaviour
         if (col.gameObject.tag == "EnemyBullet")
         {
             StartCoroutine("Damage");
+        }
+
+        if (col.gameObject.tag == "BulletPlus")
+        {
+            _audio.PlayOneShot(_audioReroad);
         }
     }
 

@@ -13,6 +13,7 @@ public class PlayerAttackController : MonoBehaviour
     [SerializeField]AudioClip _audio;
     [SerializeField] AudioClip _audio2;
     AudioSource a;
+    public int bulletCount { get; private set; }
 
     void Start()
     {
