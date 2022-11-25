@@ -27,7 +27,7 @@ public class EnemyController : MonoBehaviour
         Hp = _hp;
         _me = this.gameObject.transform;
         _scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        _player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerController>();
     }
 
     void Update()
