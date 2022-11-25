@@ -12,13 +12,17 @@ public class CurrentTurnPresenter : MonoBehaviour
     [SerializeField]
     private int _clearTurn = 3;
 
-    void Start()
+    private void Awake()
     {
         _nowTurn = GetComponent<WaveAnimation>();
         if (_turnText == null)
         {
             Debug.LogError("ターン表示用テキストをアサインしてください！");
         }
+    }
+    void Start()
+    {
+
     }
     public void UpdateValue()
     {
