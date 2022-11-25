@@ -14,12 +14,17 @@ public class SceneCanger : MonoBehaviour
     [SceneName,SerializeField]
     private string _nextScene;
 
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(_nextScene);
+    }
     public void LoadScene(string v)
     {
         SceneManager.LoadScene(_nextScene);
     }
 
-    public void StartGame(int num)
+    public void StartGame
+        (int num)
     {
         var scoreManager = GameObject.Find("ScoreManager");
 
