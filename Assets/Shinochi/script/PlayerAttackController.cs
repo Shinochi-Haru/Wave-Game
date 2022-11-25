@@ -10,15 +10,23 @@ public class PlayerAttackController : MonoBehaviour
     [SerializeField] float _bulletSpeed = 10f;
     [SerializeField] int _shotCount; // 弾の発射数
     [SerializeField] int _bulletCount = 0;
-    [SerializeField]AudioClip _audio;
+    [SerializeField] AudioClip _audio;
     [SerializeField] AudioClip _audio2;
     AudioSource a;
+    PlayerController _player;
+
+    [SerializeField] GameObject _topFire;
+    [SerializeField] GameObject _backFire;
+    [SerializeField] GameObject _leftFire;
+    [SerializeField] GameObject _rightFire;
     public int BulletCount => _bulletCount;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         a = GetComponent<AudioSource>();
+        var player = GameObject.Find("Player");
+        _player = player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -35,7 +43,7 @@ public class PlayerAttackController : MonoBehaviour
 
         // プレイヤーがマウスカーソルの方向を見るようにする
         var angles = transform.localEulerAngles;
-        angles.z = angle - 90;
+        angles.z = angle + 90;
         transform.localEulerAngles = angles;
 
         // 弾の発射タイミングを管理するタイマーを更新する
@@ -51,6 +59,22 @@ public class PlayerAttackController : MonoBehaviour
                 Fire(angle, _bulletSpeed, _shotCount);
                 _bulletCount--;
                 a.PlayOneShot(_audio);
+                if (_player.isTop == true)
+                {
+                    _topFire.SetActive(true);
+                }
+                else if (_player.isBack == true)
+                {
+                    _backFire.SetActive(true);
+                }
+                else if (_player.isLeft == true)
+                {
+                    _leftFire.SetActive(true);
+                }
+                else if (_player.isRight == true)
+                {
+                    _rightFire.SetActive(true);
+                }
             }
         }
         else if(_bulletCount == 0)

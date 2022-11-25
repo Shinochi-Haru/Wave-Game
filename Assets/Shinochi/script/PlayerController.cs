@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,6 +24,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioClip _recover;
     [SerializeField] GameObject player;
 
+    Animator _anim;
+
+    public bool isTop = false;
+    public bool isBack = false;
+    public bool isLeft = false;
+    public bool isRight = false;
+    [SerializeField] GameObject _topGun;
+    [SerializeField] GameObject _backGun;
+    [SerializeField] GameObject _leftGun;
+    [SerializeField] GameObject _rightGun;
+
     public int HpMax { get; private set; }
     public int Hp { get { return _hp; } set { _hp = value; } }
     public float DefaultSpeed { get; private set; }
@@ -39,6 +51,7 @@ public class PlayerController : MonoBehaviour
         sceneCanger = GetComponent<SceneCanger>();
         renderer = GetComponent<Renderer>();
         _audio = GetComponent<AudioSource>();
+        _anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -47,6 +60,10 @@ public class PlayerController : MonoBehaviour
         {
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
+            _anim.SetFloat("SpeedX", h);
+            _anim.SetFloat("SpeedY", v);
+            FlipX(h);
+            FlipY(v);
             _dir = new Vector2(h, v).normalized;
             _rb.velocity = _dir * _speed;
         }
@@ -70,15 +87,79 @@ public class PlayerController : MonoBehaviour
             heartArray[2].gameObject.SetActive(false);
             heartArray[1].gameObject.SetActive(false);
             heartArray[0].gameObject.SetActive(true);
-        }
-        else if (Hp < 1)
-        {
             Instantiate(player, this.transform.position, Quaternion.identity);
             Debug.Log("GameOver");
-            sceneCanger.LoadScene("Result");
+            this.gameObject.SetActive(false);
         }
     }
 
+    public void FlipX(float hol)
+    {
+        if (hol < 0)//left
+        {
+            isTop = false;
+            isBack = false;
+            isLeft = true;
+            isRight = false;
+            _topGun.SetActive(false);
+            _backGun.SetActive(false);
+            _leftGun.SetActive(true);
+            _rightGun.SetActive(false);
+            _anim.SetBool("isTop", false);
+            _anim.SetBool("isBack", false);
+            _anim.SetBool("isLeft", true);
+            _anim.SetBool("isRight", false);
+        }
+        else if (hol > 0)//right
+        {
+            isTop = false;
+            isBack = false;
+            isLeft = false;
+            isRight = true;
+            _topGun.SetActive(false);
+            _backGun.SetActive(false);
+            _leftGun.SetActive(false);
+            _rightGun.SetActive(true);
+            _anim.SetBool("isTop", false);
+            _anim.SetBool("isBack", false);
+            _anim.SetBool("isLeft", false);
+            _anim.SetBool("isRight", true);
+        }
+    }
+
+    public void FlipY(float ver)
+    {
+        if (ver < 0)//top
+        {
+            isTop = false;
+            isBack = false;
+            isLeft = false;
+            isRight = true;
+            _topGun.SetActive(true);
+            _backGun.SetActive(false);
+            _leftGun.SetActive(false);
+            _rightGun.SetActive(false);
+            _anim.SetBool("isTop", true);
+            _anim.SetBool("isBack", false);
+            _anim.SetBool("isLeft", false);
+            _anim.SetBool("isRight", false);
+        }
+        else if (ver > 0)//back
+        {
+            isTop = false;
+            isBack = true;
+            isLeft = false;
+            isRight = false;
+            _topGun.SetActive(false);
+            _backGun.SetActive(true);
+            _leftGun.SetActive(false);
+            _rightGun.SetActive(false);
+            _anim.SetBool("isTop", false);
+            _anim.SetBool("isBack", true);
+            _anim.SetBool("isLeft", false);
+            _anim.SetBool("isRight", false);
+        }
+    }
     public void UpdateBullet(int bullet)
     {
         _bulletCount += bullet;
@@ -145,6 +226,7 @@ public class PlayerController : MonoBehaviour
     public void Damage(int dam)
     {
         Hp -= dam;
+        _anim.SetTrigger("Damage");
         _audio.PlayOneShot(_audioDamage);
     }
 }
