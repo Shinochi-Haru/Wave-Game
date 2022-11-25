@@ -9,6 +9,9 @@ public class WavesPlayerContact : MonoBehaviour
     /// <summary> プレイヤーを攫っているかどうか </summary>
     public bool TakeAwayPlayer => _takeAwayPlayer;
 
+    [SerializeField]
+    private GameObject _playerDeathPrefab;
+
 
     // あとでコメントインする
     private void OnTriggerEnter2D(Collider2D collision)
@@ -26,22 +29,13 @@ public class WavesPlayerContact : MonoBehaviour
     {
         _takeAwayPlayer = true;
         // プレイヤーを波の子オブジェクトにする。
-        player.transform.SetParent(this.transform);
-        // プレイヤーの移動を停止する。
-        player.IsMove = false;
-        // 波に攫う演出後,GameOver演出を再生,あるいはGameOverシーンに遷移する。
+        //player.transform.SetParent(this.transform);
+        //// プレイヤーの移動を停止する。
+        //player.IsMove = false;
+        Instantiate(_playerDeathPrefab, this.transform);
     }
     public void OnGameOver()
     {
         SceneManager.LoadScene("GameOver");
-    }
-
-    // Tests
-    [SerializeField]
-    private GameObject _playerSample;
-    public void TestKidnappedPlayer()
-    {
-        _takeAwayPlayer = true;
-        _playerSample.transform.SetParent(this.transform);
     }
 }
