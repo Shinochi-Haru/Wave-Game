@@ -31,9 +31,13 @@ public class WaveAnimation : MonoBehaviour
     /// 計測用タイマー
     /// </summary>
     private float _idleTimer = 0f;
+    public float IdleTimer => _idleTimer;
     private FlotsamDrop _droper = null;
     private WavesPlayerContact _playerContacter = null;
     private CurrentTurnPresenter _currentTurnPresenter = null;
+
+    public float MaxIdleTime => _wavesIdleTime;
+
 
     /// <summary> 波が引いた回数をカウントする値 </summary>
     public int WavesPulledCount => _wavesPulledCount;
