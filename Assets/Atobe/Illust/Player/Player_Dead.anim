@@ -164,7 +164,7 @@ AnimationClip:
   m_Events:
   - time: 2.8333333
     functionName: LoadScene
-    data: GameOver
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

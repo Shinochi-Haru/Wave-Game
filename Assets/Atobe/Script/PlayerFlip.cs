@@ -30,12 +30,12 @@ public class PlayerFlip : MonoBehaviour
         // Player ‚ª‰E‚ğŒü‚¢‚Ä‚¢‚é‚Æ‚«
         if (horizontal > 0)
         {
-            this.transform.localScale = new Vector3(Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+            this.transform.localScale = new Vector3(-1 * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
         }
         // Player ‚ª¶‚ğŒü‚¢‚Ä‚¢‚é‚Æ‚«
         else if (horizontal < 0)
         {
-            this.transform.localScale = new Vector3(-1 * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+            this.transform.localScale = new Vector3(Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
         }
     }
 
