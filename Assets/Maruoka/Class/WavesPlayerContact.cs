@@ -32,7 +32,10 @@ public class WavesPlayerContact : MonoBehaviour
         //player.transform.SetParent(this.transform);
         //// プレイヤーの移動を停止する。
         //player.IsMove = false;
-        Instantiate(_playerDeathPrefab, player.transform.position, Quaternion.identity, this.transform);
+        var a = Instantiate(_playerDeathPrefab, player.transform.position, Quaternion.identity, this.transform);
+        var b = a.transform;
+        b.localScale /= 3f;
+        a.transform.localScale = b.localScale;
         GameObject.Destroy(player.gameObject);
     }
     public void OnGameOver()
