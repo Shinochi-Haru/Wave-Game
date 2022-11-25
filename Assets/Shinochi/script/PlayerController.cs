@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     AudioSource _audio;
     [SerializeField] AudioClip _audioReroad;
     [SerializeField] AudioClip _audioDamage;
+    [SerializeField] AudioClip _bulletPlus;
+    [SerializeField] AudioClip _speedDown;
 
     public int HpMax { get; private set; }
     public int Hp { get { return _hp; } set { _hp = value; } }
@@ -81,6 +83,11 @@ public class PlayerController : MonoBehaviour
         if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "EnemyX" || col.gameObject.tag == "EnemyY")
         {
             StartCoroutine("Damage");
+        }
+
+        if(col.gameObject.tag == "BulletPlus")
+        {
+            AudioSource.PlayClipAtPoint(_bulletPlus, transform.position);
         }
     }
 
