@@ -173,7 +173,6 @@ MonoBehaviour:
   _hp: 1
   _point: 1000
   _damage: 1
-  _bom: {fileID: 1173178490755030186, guid: 32163492cba732d40a9c6353e6172e98, type: 3}
 --- !u!114 &3217166028206009571
 MonoBehaviour:
   m_ObjectHideFlags: 0
